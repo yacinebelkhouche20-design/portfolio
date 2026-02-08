@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yacine Belkhouche | AI & Digital Trust Engineer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0f172a; 
+            --card-bg: rgba(15, 23, 42, 0.85); 
+            --accent: #0ea5e9; 
+            --accent-glow: rgba(14, 165, 233, 0.4);
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --mono-font: 'Fira Code', monospace;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- STUDIO BLUR BACKGROUND --- */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            filter: blur(25px) brightness(0.35);
+            transform: scale(1.1);
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; flex: 1; }
+        .hidden { display: none !important; }
+
+        /* Navigation */
+        nav {
+            padding: 2.5rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+        .logo { font-family: var(--mono-font); color: var(--accent); font-weight: bold; cursor: pointer; text-shadow: 0 0 15px var(--accent-glow); text-decoration: none; font-size: 1rem; letter-spacing: -1px; }
+        .nav-links { display: flex; gap: 30px; font-family: var(--mono-font); font-size: 0.8rem; }
+        .nav-links a { color: var(--text-dim); text-decoration: none; transition: 0.3s; display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        .nav-links a:hover { color: var(--accent); }
+
+        /* Hero */
+        header { padding: 8rem 0 4rem; }
+        .hero-tag { font-family: var(--mono-font); color: var(--accent); font-size: 0.75rem; margin-bottom: 1rem; display: block; letter-spacing: 4px; text-transform: uppercase; font-weight: 700; }
+        h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); margin-bottom: 1.5rem; line-height: 1.1; font-weight: 800; letter-spacing: -2px; }
+        .hero-desc { font-size: 1.3rem; color: var(--text-dim); max-width: 850px; font-weight: 300; }
+
+        /* --- DIAGNOSTIC DASHBOARD STACK --- */
+        .mission-grid { display: grid; grid-template-columns: 1.6fr 1.4fr; gap: 5rem; margin-top: 4rem; align-items: start; }
+        .stack-diagnostic { 
+            background: var(--card-bg); 
+            border: 1px solid var(--accent);
+            border-radius: 16px;
+            padding: 2.5rem;
+            backdrop-filter: blur(30px);
+            box-shadow: 0 0 40px rgba(14, 165, 233, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        .stack-diagnostic::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0.3;
+            animation: scan 4s linear infinite;
+        }
+        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+        .stack-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; }
+        .stack-title { font-family: var(--mono-font); font-size: 0.85rem; color: var(--accent); font-weight: 700; }
+        .status-light { display: flex; align-items: center; gap: 8px; font-family: var(--mono-font); font-size: 0.65rem; color: #22c55e; }
+        .dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 10px #22c55e; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+
+        .stack-row { display: grid; grid-template-columns: 110px 1fr; gap: 2rem; margin-bottom: 1.5rem; }
+        .row-label { font-family: var(--mono-font); font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; border-right: 1px solid var(--border); padding-right: 10px; }
+        .stack-item { font-family: var(--mono-font); font-size: 0.8rem; display: flex; align-items: center; color: var(--text-main); margin-bottom: 5px; }
+        .slash { color: var(--accent); font-weight: bold; margin-right: 6px; }
+
+        /* Projects Layout */
+        .section-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 5px; color: var(--text-dim); margin: 8rem 0 4rem; display: flex; align-items: center; }
+        .section-title::after { content: ""; height: 1px; background: var(--border); flex-grow: 1; margin-left: 2rem; }
+        .project-card { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 4rem; align-items: center; margin-bottom: 10rem; cursor: pointer; }
+        .project-img { border-radius: 20px; aspect-ratio: 16/10; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 30px 60px rgba(0,0,0,0.4); }
+        .project-img img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; transition: 0.8s; }
+        .project-card:hover img { transform: scale(1.05); opacity: 1; }
+        .tag { font-family: var(--mono-font); font-size: 0.65rem; background: rgba(14, 165, 233, 0.1); color: var(--accent); padding: 5px 12px; border-radius: 6px; border: 1px solid rgba(14, 165, 233, 0.3); text-transform: uppercase; font-weight: 700; margin-right: 8px; display: inline-block; margin-top: 10px; }
+
+        /* Detail View */
+        .detail-view { animation: fadeIn 0.8s ease forwards; padding-bottom: 10rem; }
+        .back-btn { display: inline-flex; align-items: center; gap: 12px; color: var(--accent); text-decoration: none; font-size: 0.75rem; margin: 3rem 0; cursor: pointer; font-family: var(--mono-font); letter-spacing: 2px; }
+        .detail-hero { width: 100%; height: 450px; border-radius: 24px; object-fit: cover; margin-bottom: 4rem; border: 1px solid var(--border); }
+        .detail-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 5rem; }
+        .detail-text h2 { color: var(--accent); margin: 2.5rem 0 1.5rem; font-size: 1.6rem; letter-spacing: -0.5px; }
+        .detail-text ul { list-style: none; margin-bottom: 2.5rem; }
+        .detail-text li { margin-bottom: 1rem; padding-left: 1.5rem; position: relative; color: var(--text-dim); }
+        .detail-text li::before { content: "›"; position: absolute; left: 0; color: var(--accent); font-weight: bold; }
+
+        /* Footer */
+        footer { padding: 6rem 0 4rem; text-align: center; border-top: 1px solid var(--border); margin-top: auto; }
+        .footer-socials { display: flex; justify-content: center; gap: 50px; margin-bottom: 3rem; }
+        .footer-socials a { color: var(--text-dim); font-size: 1.8rem; transition: 0.4s; position: relative; text-decoration: none; }
+        .footer-socials a:hover { color: var(--accent); transform: translateY(-10px); }
+        .footer-socials a span { font-family: var(--mono-font); font-size: 0.6rem; position: absolute; bottom: -35px; left: 50%; transform: translateX(-50%); opacity: 0; transition: 0.3s; color: var(--accent); letter-spacing: 2px; }
+        .footer-socials a:hover span { opacity: 1; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 1000px) { .mission-grid, .project-card, .detail-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <nav>
+            <a onclick="showPage('home')" class="logo">Yacine Belkhouche</a>
+            <div class="nav-links">
+                <a onclick="showPage('home')" style="cursor: pointer;"><i class="fa-solid fa-house"></i> HOME</a>
+                <a onclick="showPage('about')" style="cursor: pointer;"><i class="fa-solid fa-user-astronaut"></i> ABOUT</a>
+            </div>
+        </nav>
+
+        <div id="home">
+            <header>
+                <span class="hero-tag">Engineering Trusted Autonomy</span>
+                <h1>Securing the Future <br>of Intelligent Systems.</h1>
+                <p class="hero-desc">
+                    Architecting high-assurance infrastructure where <strong>Multi-modal Intelligence</strong> meets <strong>Applied Cryptography</strong> to defend the digital frontiers of identity and trust.
+                </p>
+            </header>
+
+            <div class="section-title">Operational Briefing</div>
+            <div class="mission-grid">
+                <div class="mission-text">
+                    <p style="font-size: 1.2rem; color: var(--text-dim); margin-bottom: 2.5rem; font-weight: 300;">
+                        Defending against digital forgery and biometric injection by hardening system integrity at three critical layers:
+                    </p>
+                    <div style="display: grid; gap: 2.5rem;">
+                        <div style="display: flex; gap: 20px;">
+                            <i class="fa-solid fa-brain" style="color: var(--accent); font-size: 1.5rem; margin-top: 5px;"></i>
+                            <div>
+                                <h4 style="font-weight: 700; margin-bottom: 5px;">Multi-modal AI Security</h4>
+                                <p style="color: var(--text-dim); font-size: 1rem;">Fusing signal streams—from rPPG biometrics to pixel-level forensics—to verify media integrity in zero-trust environments.</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 20px;">
+                            <i class="fa-solid fa-vault" style="color: var(--accent); font-size: 1.5rem; margin-top: 5px;"></i>
+                            <div>
+                                <h4 style="font-weight: 700; margin-bottom: 5px;">Cryptographic Engineering</h4>
+                                <p style="color: var(--text-dim); font-size: 1rem;">Designing resilient PKI lifecycles and hardware-backed key protection (Keystore/Keychain) for high-security mobile ecosystems.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stack-diagnostic">
+                    <div class="stack-header">
+                        <span class="stack-title"><i class="fa-solid fa-code-branch"></i> STACK_INTEGRITY</span>
+                        <div class="status-light"><div class="dot"></div> OPERATIONAL</div>
+                    </div>
+                    <div class="stack-row">
+                        <div class="row-label">Intelligence</div>
+                        <div class="row-values">
+                            <div class="stack-item"><span class="slash">/</span>TensorFlow</div>
+                            <div class="stack-item"><span class="slash">/</span>PyTorch</div>
+                            <div class="stack-item"><span class="slash">/</span>OpenCV</div>
+                        </div>
+                    </div>
+                    <div class="stack-row">
+                        <div class="row-label">Security</div>
+                        <div class="row-values">
+                            <div class="stack-item"><span class="slash">/</span>mTLS / PKI</div>
+                            <div class="stack-item"><span class="slash">/</span>ECDSA</div>
+                            <div class="stack-item"><span class="slash">/</span>OpenSSL</div>
+                        </div>
+                    </div>
+                    <div class="stack-row">
+                        <div class="row-label">Mobile</div>
+                        <div class="row-values">
+                            <div class="stack-item"><span class="slash">/</span>Kotlin / Swift</div>
+                            <div class="stack-item"><span class="slash">/</span>Flutter Bridge</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-family: var(--mono-font); font-size: 0.65rem; color: var(--accent);">
+                        <i class="fa-solid fa-location-dot"></i> BASE_OPS: TLEMCEN_ALGERIA
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-title">Case Studies & Research</div>
+
+            <div class="project-card" onclick="showPage('p1')">
+                <div class="project-img"><img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1000&auto=format&fit=crop"></div>
+                <div class="project-info">
+                    <span class="hero-tag">Security Architecture</span>
+                    <h3>Secure Communication SDK</h3>
+                    <p style="color: var(--text-dim);">A cross-platform security layer enabling mTLS and hardware-backed cryptographic protection for fintech and healthcare.</p>
+                    <div class="tech-tags"><span class="tag">mTLS</span><span class="tag">PKI</span><span class="tag">Kotlin/Swift</span></div>
+                </div>
+            </div>
+
+            <div class="project-card" style="direction: rtl;" onclick="showPage('p2')">
+                <div class="project-img" style="direction: ltr;"><img src="https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?q=80&w=1000&auto=format&fit=crop"></div>
+                <div class="project-info" style="direction: ltr;">
+                    <span class="hero-tag">Identity Systems</span>
+                    <h3>NFC ID Verification</h3>
+                    <p style="color: var(--text-dim);">Implementing international identity standards to secure physical-to-digital credential extraction.</p>
+                    <div class="tech-tags"><span class="tag">ICAO 9303</span><span class="tag">NFC-Core</span><span class="tag">eMRTD</span></div>
+                </div>
+            </div>
+
+            <div class="project-card" onclick="showPage('p3')">
+                <div class="project-img"><img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000&auto=format&fit=crop"></div>
+                <div class="project-info">
+                    <span class="hero-tag">Forensic AI // Research</span>
+                    <h3>F2-Net: Fusion Architecture</h3>
+                    <p style="color: var(--text-dim);">Integrated detection of biometric injection attacks and document forgery in remote onboarding processes.</p>
+                    <div class="tech-tags"><span class="tag">Fusion Architecture</span><span class="tag">CNN-LSTM</span><span class="tag">Forensics</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="about" class="detail-view hidden">
+            <a onclick="showPage('home')" class="back-btn"><i class="fa-solid fa-arrow-left"></i> BACK_TO_SYSTEM</a>
+            <header style="padding-bottom: 2rem;">
+                <span class="hero-tag">Tlemcen, Algeria</span>
+                <h1>Engineering Trust.</h1>
+                <p class="hero-desc">Operating at the intersection of High-Security Software Architecture and Artificial Intelligence.</p>
+            </header>
+            <div class="detail-grid">
+                <div class="detail-text">
+                    <p>I am currently concluding a rigorous <strong>5-year Computer Science curriculum</strong> specialized in <strong>Artificial Intelligence</strong>. My focus lies in architecting resilient digital environments where security is the foundation, not an afterthought.</p>
+                    <h2>Core Focus</h2>
+                    <ul>
+                        <li><strong>Deep Learning Models:</strong> Designing and deploying multi-modal architectures for complex forensic challenges.</li>
+                        <li><strong>Secure System Engineering:</strong> Building cryptographic infrastructures that manage full certificate lifecycles on-device.</li>
+                        <li><strong>Full-Stack Development:</strong> Developing high-performance mobile applications and websites using <strong>Kotlin, Swift, and Flutter</strong>.</li>
+                        <li><strong>Applied Cryptography:</strong> Researching zero-trust communication protocols and hardware-backed key protection.</li>
+                    </ul>
+                </div>
+                <div class="sidebar-card">
+                    <h3 style="font-family: var(--mono-font); font-size: 0.8rem; color: var(--accent); margin-bottom: 1rem;">[ IDENTITY_LOG ]</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-dim); margin-bottom: 0.5rem;"><strong>Name:</strong> Yacine Belkhouche</p>
+                    <p style="font-size: 0.85rem; color: var(--text-dim); margin-bottom: 0.5rem;"><strong>Level:</strong> Final Year CS</p>
+                    <p style="font-size: 0.85rem; color: var(--text-dim); margin-bottom: 0.5rem;"><strong>Base:</strong> Tlemcen, DZ</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="p1" class="detail-view hidden">
+            <a onclick="showPage('home')" class="back-btn"><i class="fa-solid fa-arrow-left"></i> BACK_TO_SYSTEM</a>
+            <img class="detail-hero" src="https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1000&auto=format&fit=crop">
+            <h1>Secure Communication SDK</h1>
+            <div class="detail-grid">
+                <div class="detail-text">
+                    <p>Cross-platform mobile SDK for Android (Kotlin) and iOS (Swift) that enables TLS, mTLS, and certificate-based authentication.</p>
+                    <h2>Key Features</h2>
+                    <ul>
+                        <li>On-device <strong>ECDSA secp256r1</strong> certificate generation.</li>
+                        <li>Private key protection via Android Keystore and iOS Keychain.</li>
+                        <li>Automated certificate pinning and BKS trust stores.</li>
+                    </ul>
+                </div>
+                <div class="sidebar-card">
+                    <h3 style="font-family: var(--mono-font); font-size: 0.8rem; color: var(--accent); margin-bottom: 1rem;">[ STACK ]</h3>
+                    <div class="tech-tags"><span class="tag">Kotlin</span><span class="tag">Swift</span><span class="tag">BouncyCastle</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="p2" class="detail-view hidden">
+            <a onclick="showPage('home')" class="back-btn"><i class="fa-solid fa-arrow-left"></i> BACK_TO_SYSTEM</a>
+            <img class="detail-hero" src="https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?q=80&w=1000&auto=format&fit=crop">
+            <h1>NFC Identity Verification</h1>
+            <div class="detail-grid">
+                <div class="detail-text">
+                    <p>Exploring NFC technology and MRZ recognition for secure identity verification.</p>
+                    <h2>Highlights</h2>
+                    <ul>
+                        <li>Leveraging <strong>ICAO Doc 9303</strong> standards for eMRTDs.</li>
+                        <li>MRZ recognition to enable secure NFC communication.</li>
+                    </ul>
+                </div>
+                <div class="sidebar-card">
+                    <h3 style="font-family: var(--mono-font); font-size: 0.8rem; color: var(--accent); margin-bottom: 1rem;">[ FOCUS ]</h3>
+                    <div class="tech-tags"><span class="tag">NFC-Core</span><span class="tag">MRZ Recognition</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="p3" class="detail-view hidden">
+            <a onclick="showPage('home')" class="back-btn"><i class="fa-solid fa-arrow-left"></i> BACK_TO_SYSTEM</a>
+            <img class="detail-hero" src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000&auto=format&fit=crop">
+            <h1>F2-Net: Forensic Fusion Network</h1>
+            <div class="detail-grid">
+                <div class="detail-text">
+                    <p>Multi-stream architecture designed to combat Biometric Video Injection Attacks (IAD) and Document Forgery.</p>
+                    <h2>The Multi-Modal Defense</h2>
+                    <ul>
+                        <li><strong>Deepfake Forensics:</strong> Frequency-domain inconsistency detection.</li>
+                        <li><strong>Physiological Liveness:</strong> Involuntary skin color variation analysis (rPPG).</li>
+                        <li><strong>Attention-Based Fusion:</strong> Dynamic stream weighting for holistic Risk Scores.</li>
+                    </ul>
+                </div>
+                <div class="sidebar-card">
+                    <h3 style="font-family: var(--mono-font); font-size: 0.8rem; color: var(--accent); margin-bottom: 1rem;">[ INNOVATION ]</h3>
+                    <div class="tech-tags"><span class="tag">CNN-LSTM</span><span class="tag">rPPG</span></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="footer-socials">
+            <a href="https://www.linkedin.com/in/yacine-belkhouche-766a52252/" target="_blank">
+                <i class="fa-brands fa-linkedin-in"></i>
+                <span>LINKEDIN</span>
+            </a>
+            <a href="https://github.com/yacine-belkhouche" target="_blank">
+                <i class="fa-brands fa-github"></i>
+                <span>GITHUB</span>
+            </a>
+            <a href="https://wa.me/+213672128799" target="_blank">
+                <i class="fa-solid fa-paper-plane"></i>
+                <span>WHATSAPP</span>
+            </a>
+        </div>
+        <p style="font-family: var(--mono-font); font-size: 0.7rem; color: var(--text-dim); letter-spacing: 2px;">
+            YACINE BELKHOUCHE // TLEMCEN_ALGERIA // 2026_VERSION
+        </p>
+    </footer>
+
+    <script>
+        function showPage(id) {
+            const views = ['home', 'about', 'p1', 'p2', 'p3'];
+            views.forEach(vId => {
+                const el = document.getElementById(vId);
+                if (el) el.classList.add('hidden');
+            });
+            const target = document.getElementById(id);
+            if (target) {
+                target.classList.remove('hidden');
+                target.style.animation = 'fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        window.onload = () => showPage('home');
+    </script>
+</body>
+</html>
